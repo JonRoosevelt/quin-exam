@@ -1,4 +1,5 @@
 import { createTheme, NextUIProvider } from "@nextui-org/react";
+import { DatePicker } from "./components/DatePicker";
 import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { AppContextProvider } from "./context/App";
@@ -15,6 +16,7 @@ function App() {
     <AppContextProvider>
       <NextUIProvider theme={darkTheme}>
         <Header text="Learn react" />
+        <DatePicker />
         <Main />
       </NextUIProvider>
     </AppContextProvider>
