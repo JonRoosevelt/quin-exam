@@ -26,6 +26,10 @@ export const Main: FC = (props) => {
               key={result.id}
               latitude={result?.pad?.latitude}
               longitude={result?.pad?.longitude}
+              time={result?.net}
+              padName={result?.pad?.name}
+              agencyName={result?.launch_service_provider.name}
+              mapImage={result?.pad.location?.map_image}
             />
           ))}
         </MapContainer>
