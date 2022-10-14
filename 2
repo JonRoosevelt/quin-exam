@@ -6,29 +6,22 @@ export const DatePicker = () => {
   const { selectedFinalDate, setSelectedFinalDate } = useAppContext();
 
   return (
-    <Grid.Container
-      css={{ marginTop: 20, marginBottom: 20 }}
-      justify="space-around"
-    >
+    <Grid.Container css={{ marginBottom: 20 }} justify="space-around">
       <Grid>
         <Input
-          label="Initial Date"
-          type="date"
           bordered
-          status="secondary"
+          labelPlaceholder="Initial Date"
+          status="primary"
           defaultValue={selectedInitialDate.toDateString()}
-          onChange={(e) => setSelectedIntialDate(new Date(e.target.value))}
-        />
+        ></Input>
       </Grid>
       <Grid>
         <Input
-          label="Final Date"
-          type={"date"}
           bordered
-          status="secondary"
+          status="primary"
+          labelPlaceholder="Secondary Date"
           defaultValue={selectedFinalDate.toDateString()}
-          onChange={(e) => setSelectedFinalDate(new Date(e.target.value))}
-        />
+        ></Input>
       </Grid>
     </Grid.Container>
   );

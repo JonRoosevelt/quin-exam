@@ -1,13 +1,26 @@
 import { Result } from "../types/Launch";
-const URL = "https://ll.thespacedevs.com/2.2.0/launch/upcoming?sort=net";
 
-export const dateBetweenTodayAndXMonths = (net: string, months: number) => {
-  const netDate = new Date(net);
+interface LaunchesApiProps {
+  selectedInitialDate: Date;
+  selectedFinalDate: Date;
+}
+
+const urls = {
+  external: "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json",
+  local: "http://localhost:3000/api",
+};
+
+export const dateBetweenTodayAndXMonths = (
+  result: Result,
+  initialDate: Date,
+  finalDate: Date
+) => {
+  finalDate.setHours(23, 59, 59, 999);
   const today = new Date();
-  return (
-    netDate >= today &&
-    netDate < new Date(today.setMonth(today.getMonth() + months))
-  );
+  const netDate = new Date(result.net);
+  const isBetweenDates = netDate >= today && netDate <= finalDate;
+  console.table({ today, netDate, initialDate, finalDate, isBetweenDates });
+  return isBetweenDates;
 };
 
 export const keeFetchingWhileItHasNextPage = (results: Result[]) => {
@@ -15,15 +28,23 @@ export const keeFetchingWhileItHasNextPage = (results: Result[]) => {
   return lastResult?.hasOwnProperty("next");
 };
 
-export const launchesApi = async () => {
-  const MONTHS_IN_THE_FUTURE = 3;
+export const launchesApi = async ({
+  selectedInitialDate,
+  selectedFinalDate,
+}: LaunchesApiProps) => {
+  const URL = urls.local;
   let results = [];
+  console.log(selectedFinalDate, selectedInitialDate);
   try {
     results = await fetch(URL)
       .then((response) => response.json())
       .then((jsonResponse) => {
         return jsonResponse.results.filter((result: Result) =>
-          dateBetweenTodayAndXMonths(result.net, MONTHS_IN_THE_FUTURE)
+          dateBetweenTodayAndXMonths(
+            result,
+            selectedInitialDate,
+            selectedFinalDate
+          )
         );
       });
   } catch (error) {
