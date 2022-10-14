@@ -15,7 +15,7 @@ function App() {
   return (
     <AppContextProvider>
       <NextUIProvider theme={darkTheme}>
-        <Header text="Learn react" />
+        <Header text="Launch Map 🚀" />
         <DatePicker />
         <Main />
       </NextUIProvider>

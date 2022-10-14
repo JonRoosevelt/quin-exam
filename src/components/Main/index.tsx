@@ -16,7 +16,7 @@ export const Main: FC = (props) => {
   return (
     <div className="App-main">
       <Grid.Container gap={2} justify="center">
-        <MapContainer center={[51.505, -0.09]} zoom={2} scrollWheelZoom={false}>
+        <MapContainer center={[40, 1]} zoom={2} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
