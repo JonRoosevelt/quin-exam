@@ -19,7 +19,6 @@ export const dateBetweenTodayAndXMonths = (
   const today = new Date();
   const netDate = new Date(result.net);
   const isBetweenDates = netDate >= today && netDate <= finalDate;
-  console.table({ today, netDate, initialDate, finalDate, isBetweenDates });
   return isBetweenDates;
 };
 
@@ -32,9 +31,9 @@ export const launchesApi = async ({
   selectedInitialDate,
   selectedFinalDate,
 }: LaunchesApiProps) => {
-  const URL = urls.local;
+  const URL = process.env?.EXTERNAL_URL ? urls.local : urls.external;
+  console.log(process.env.EXTERNAL_URL);
   let results = [];
-  console.log(selectedFinalDate, selectedInitialDate);
   try {
     results = await fetch(URL)
       .then((response) => response.json())

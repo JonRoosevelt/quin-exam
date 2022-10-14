@@ -1,12 +1,6 @@
-import { Card, Grid, Text } from "@nextui-org/react";
-import React, { FC, useContext } from "react";
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMapEvents,
-} from "react-leaflet";
+import { Grid } from "@nextui-org/react";
+import { FC } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { useAppContext } from "../../context/App";
 import { LaunchingPoint } from "../LaunchingPoint";
 
