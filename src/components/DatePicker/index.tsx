@@ -2,7 +2,7 @@ import { Grid, Input } from "@nextui-org/react";
 import { useAppContext } from "../../context/App";
 
 export const DatePicker = () => {
-  const { selectedInitialDate, setSelectedIntialDate } = useAppContext();
+  const { selectedInitialDate, setSelectedInitialDate } = useAppContext();
   const { selectedFinalDate, setSelectedFinalDate } = useAppContext();
 
   return (
@@ -17,7 +17,7 @@ export const DatePicker = () => {
           bordered
           status="secondary"
           defaultValue={selectedInitialDate.toDateString()}
-          onChange={(e) => setSelectedIntialDate(new Date(e.target.value))}
+          onChange={(e) => setSelectedInitialDate(new Date(e.target.value))}
         />
       </Grid>
       <Grid>
