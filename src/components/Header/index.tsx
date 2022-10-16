@@ -10,7 +10,6 @@ export const Header: FC<HeaderProps> = (props) => {
     <header className="App-header">
       <Navbar>
         <Text>{props.text}</Text>
-        <Switch onChange={() => ({})}>Toggle Dark mode</Switch>
       </Navbar>
     </header>
   );

@@ -32,7 +32,6 @@ export const launchesApi = async ({
   selectedFinalDate,
 }: LaunchesApiProps) => {
   const URL = process.env?.EXTERNAL_URL ? urls.local : urls.external;
-  console.log(process.env.EXTERNAL_URL);
   let results = [];
   try {
     results = await fetch(URL)
