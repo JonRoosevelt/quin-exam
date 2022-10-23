@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { useEffect } from "react";
 import { launchesApi } from "../../api/launchesApi";
 import { threeMonthsInTheFuture } from "../../consts";
 import { Result } from "../../types/Launch";
@@ -16,9 +16,9 @@ const today = new Date();
 
 export const defaultApiState = {
   results: [],
-  selectedInitialDate: Date,
+  selectedInitialDate: new Date(),
   setSelectedInitialDate: (_date: Date) => {},
-  selectedFinalDate: Date,
+  selectedFinalDate: threeMonthsInTheFuture,
   setSelectedFinalDate: (_date: Date) => {},
 };
 
