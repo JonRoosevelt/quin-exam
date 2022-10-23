@@ -7,7 +7,7 @@ interface LaunchesApiProps {
 
 const urls = {
   external: (initialDate: string, finalDate: string) =>
-    `https://lldev.thespacedevs.com/2.2.0/launch/?limit=100&net__gte=${initialDate}&net__lte=${finalDate}`,
+    `https://lldev.thespacedevs.com/2.2.0/launch/?net__gte=${initialDate}&net__lte=${finalDate}`,
   local: "http://localhost:3001/api",
 };
 
@@ -27,22 +27,34 @@ export const keeFetchingWhileItHasNextPage = (results: Result[]) => {
   return lastResult?.hasOwnProperty("next");
 };
 
+const fetchLaunches = async (url: string) => {
+  const response = await fetch(url);
+  const { results, next } = await response.json();
+  return { results, next };
+};
+
 export const launchesApi = async ({
   initialDate,
   finalDate,
 }: LaunchesApiProps) => {
-  const URL = urls.external(initialDate.toISOString(), finalDate.toISOString());
-  let results = [];
-  try {
-    results = await fetch(URL)
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        return jsonResponse.results.filter((result: Result) =>
-          dateBetweenTodayAndXMonths(result, initialDate, finalDate)
-        );
-      });
-  } catch (error) {
-    throw new Error();
+  finalDate.setHours(23, 59, 59, 999);
+  let URL = urls.external(initialDate.toISOString(), finalDate.toISOString());
+  let data: Result[] = [];
+  let keepFetching = true;
+  while (keepFetching) {
+    try {
+      const { results, next } = await fetchLaunches(URL);
+      data = [...data, ...results];
+      if (next) {
+        URL = next;
+      } else {
+        keepFetching = !!next;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-  return results;
+  console.log(data);
+  return data;
 };

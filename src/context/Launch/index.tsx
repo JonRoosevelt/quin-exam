@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { launchesApi } from "../../api/launchesApi";
 import { threeMonthsInTheFuture } from "../../consts";
@@ -31,7 +31,10 @@ export const LaunchContextProvider: React.FC<LaunchContextProps> = ({
   const query = useQuery("launches", () =>
     launchesApi({ initialDate, finalDate })
   );
-  console.log(query);
+
+  useEffect(() => {
+    query.refetch();
+  }, [initialDate, finalDate]);
   return (
     <LaunchContext.Provider
       value={{
