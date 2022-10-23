@@ -6,7 +6,8 @@ interface LaunchesApiProps {
 }
 
 const urls = {
-  external: "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json",
+  external: (initialDate: string, finalDate: string) =>
+    `https://lldev.thespacedevs.com/2.2.0/launch/?limit=100&net__gte=${initialDate}&net__lte=${finalDate}`,
   local: "http://localhost:3001/api",
 };
 
@@ -30,7 +31,7 @@ export const launchesApi = async ({
   initialDate,
   finalDate,
 }: LaunchesApiProps) => {
-  const URL = urls.local;
+  const URL = urls.external(initialDate.toISOString(), finalDate.toISOString());
   let results = [];
   try {
     results = await fetch(URL)
