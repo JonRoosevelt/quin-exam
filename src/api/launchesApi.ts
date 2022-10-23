@@ -41,7 +41,7 @@ export const launchesApi = async ({
         );
       });
   } catch (error) {
-    console.log(error);
+    throw new Error();
   }
   return results;
 };
