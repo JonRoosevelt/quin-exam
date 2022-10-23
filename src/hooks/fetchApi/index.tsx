@@ -1,19 +1,28 @@
-import React, { useEffect } from "react";
-import { launchesApi } from "../api/launchesApi";
-import { threeMonthsInTheFuture } from "../consts";
-import { Result } from "../types/Launch";
+import React, { FC, useEffect } from "react";
+import { launchesApi } from "../../api/launchesApi";
+import { threeMonthsInTheFuture } from "../../consts";
+import { Result } from "../../types/Launch";
+
+interface UseFetchApi {
+  results: Result[];
+  setResults: (results: Result[]) => void;
+  selectedInitialDate: Date;
+  setSelectedInitialDate: React.Dispatch<React.SetStateAction<Date>>;
+  selectedFinalDate: Date;
+  setSelectedFinalDate: React.Dispatch<React.SetStateAction<Date>>;
+}
 
 const today = new Date();
 
 export const defaultApiState = {
   results: [],
-  selectedInitialDate: today,
+  selectedInitialDate: Date,
   setSelectedInitialDate: (_date: Date) => {},
-  selectedFinalDate: today,
+  selectedFinalDate: Date,
   setSelectedFinalDate: (_date: Date) => {},
 };
 
-export const useFetchApi = () => {
+export const useFetchApi = (): UseFetchApi => {
   const [data, setData] = React.useState<Result[]>([]);
   const [selectedInitialDate, setSelectedInitialDate] =
     React.useState<Date>(today);

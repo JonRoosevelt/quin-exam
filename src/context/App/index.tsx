@@ -1,5 +1,5 @@
 import React from "react";
-import { defaultApiState, useFetchApi } from "../../hooks/useFetchApi";
+import { defaultApiState, useFetchApi } from "../../hooks/fetchApi";
 import { AppContextProps, AppContextType } from "./types";
 
 const defaultState = {
