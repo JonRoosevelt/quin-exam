@@ -1,11 +1,11 @@
 import { Grid } from "@nextui-org/react";
 import { FC } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { useAppContext } from "../../context/App";
+import { useLaunchContext } from "../../context/Launch";
 import { LaunchingPoint } from "../LaunchingPoint";
 
 export const Main: FC = (props) => {
-  const { results } = useAppContext();
+  const { query } = useLaunchContext();
 
   return (
     <div className="App-main">
@@ -15,7 +15,7 @@ export const Main: FC = (props) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {results.map((result) => (
+          {query?.data?.map((result) => (
             <LaunchingPoint
               key={result.id}
               latitude={result?.pad?.latitude}

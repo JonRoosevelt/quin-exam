@@ -1,10 +1,9 @@
 import { Grid, Input } from "@nextui-org/react";
-import { useAppContext } from "../../context/App";
+import { useLaunchContext } from "../../context/Launch";
 
 export const DatePicker = () => {
-  const { selectedInitialDate, setSelectedInitialDate } = useAppContext();
-  const { selectedFinalDate, setSelectedFinalDate } = useAppContext();
-
+  const { initialDate, finalDate, setInitialDate, setFinalDate } =
+    useLaunchContext();
   return (
     <Grid.Container
       css={{ marginTop: 20, marginBottom: 20 }}
@@ -16,8 +15,8 @@ export const DatePicker = () => {
           type="date"
           bordered
           status="secondary"
-          defaultValue={selectedInitialDate.toDateString()}
-          onChange={(e) => setSelectedInitialDate(new Date(e.target.value))}
+          defaultValue={initialDate.toDateString()}
+          onChange={(e) => setInitialDate(new Date(e.target.value))}
         />
       </Grid>
       <Grid>
@@ -26,8 +25,8 @@ export const DatePicker = () => {
           type={"date"}
           bordered
           status="secondary"
-          defaultValue={selectedFinalDate.toDateString()}
-          onChange={(e) => setSelectedFinalDate(new Date(e.target.value))}
+          defaultValue={finalDate.toDateString()}
+          onChange={(e) => setFinalDate(new Date(e.target.value))}
         />
       </Grid>
     </Grid.Container>
