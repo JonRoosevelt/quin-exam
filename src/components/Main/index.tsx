@@ -6,25 +6,7 @@ import { Result } from "../../types/Launch";
 import { LaunchingPoint } from "../LaunchingPoint";
 
 export const Main: FC = () => {
-  const { query } = useLaunchContext();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    if (query?.isLoading) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [query?.isLoading]);
-
-  useEffect(() => {
-    if (query?.isError) {
-      setError(true);
-    } else {
-      setError(false);
-    }
-  }, [query?.isError]);
-
+  const { query, isLoading, isError } = useLaunchContext();
   return (
     <div className="App-main">
       <Grid.Container
@@ -37,7 +19,7 @@ export const Main: FC = () => {
           <Loading color="secondary" size="xl" />
         ) : (
           <>
-            {error ? (
+            {isError ? (
               <Text h3 color="error">
                 An error happened. Please try again later.
               </Text>

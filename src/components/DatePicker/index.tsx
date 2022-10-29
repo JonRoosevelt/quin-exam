@@ -3,9 +3,8 @@ import React from "react";
 import { useLaunchContext } from "../../context/Launch";
 
 export const DatePicker = () => {
-  const { initialDate, finalDate, setInitialDate, setFinalDate } =
+  const { initialDate, finalDate, setInitialDate, setFinalDate, isLoading } =
     useLaunchContext();
-  const { query } = useLaunchContext();
   const initialDateRef = React.useRef<HTMLInputElement>(null);
   const finalDateRef = React.useRef<HTMLInputElement>(null);
 
@@ -42,11 +41,7 @@ export const DatePicker = () => {
           defaultValue={finalDate.toDateString()}
         />
       </Grid>
-      <Button
-        disabled={query?.isLoading}
-        color="secondary"
-        onClick={handleClick}
-      >
+      <Button disabled={!!isLoading} color="secondary" onClick={handleClick}>
         Search
       </Button>
     </Grid.Container>

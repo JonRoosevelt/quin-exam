@@ -11,22 +11,6 @@ const urls = {
   local: "http://localhost:3001/api",
 };
 
-export const dateBetweenTodayAndXMonths = (
-  result: Result,
-  initialDate: Date,
-  finalDate: Date
-) => {
-  finalDate.setHours(23, 59, 59, 999);
-  const netDate = new Date(result.net);
-  const isBetweenDates = netDate >= initialDate && netDate <= finalDate;
-  return isBetweenDates;
-};
-
-export const keeFetchingWhileItHasNextPage = (results: Result[]) => {
-  const lastResult = results[results.length - 1];
-  return lastResult?.hasOwnProperty("next");
-};
-
 const fetchLaunches = async (url: string) => {
   const response = await fetch(url);
   const { results, next } = await response.json();
@@ -55,6 +39,5 @@ export const launchesApi = async ({
       throw error;
     }
   }
-  console.log(data);
   return data;
 };

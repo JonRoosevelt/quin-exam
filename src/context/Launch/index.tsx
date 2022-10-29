@@ -11,6 +11,8 @@ export const defaultState = {
   finalDate: threeMonthsInTheFuture,
   setInitialDate: (_date: Date) => {},
   setFinalDate: (_date: Date) => {},
+  isError: false,
+  isLoading: false,
   query: null,
 };
 
@@ -28,6 +30,10 @@ export const LaunchContextProvider: React.FC<LaunchContextProps> = ({
   const [finalDate, setFinalDate] = React.useState<Date>(
     defaultState.finalDate
   );
+  const [isLoading, setIsLoading] = React.useState<boolean>(
+    defaultState.isLoading
+  );
+  const [isError, setIsError] = React.useState<boolean>(defaultState.isError);
   const query = useQuery("launches", () =>
     launchesApi({ initialDate, finalDate })
   );
@@ -35,6 +41,23 @@ export const LaunchContextProvider: React.FC<LaunchContextProps> = ({
   useEffect(() => {
     query.refetch();
   }, [initialDate, finalDate]);
+
+  useEffect(() => {
+    if (query.isLoading || query.isFetching) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [query.isLoading]);
+
+  useEffect(() => {
+    if (query.isError) {
+      setIsError(true);
+    } else {
+      setIsError(false);
+    }
+  }, [query.isError]);
+
   return (
     <LaunchContext.Provider
       value={{
@@ -43,6 +66,8 @@ export const LaunchContextProvider: React.FC<LaunchContextProps> = ({
         setInitialDate,
         setFinalDate,
         query,
+        isLoading,
+        isError,
       }}
     >
       {children}

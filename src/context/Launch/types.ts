@@ -7,6 +7,8 @@ export interface LaunchContextType {
   finalDate: Date;
   setInitialDate: (date: Date) => void;
   setFinalDate: (date: Date) => void;
+  isError: boolean;
+  isLoading: boolean;
   query: UseQueryResult<Result[]> | null;
 }
 
