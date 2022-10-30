@@ -1,4 +1,4 @@
-import { Navbar, Switch, Text } from "@nextui-org/react";
+import { Navbar, Text } from "@nextui-org/react";
 import { FC } from "react";
 
 interface HeaderProps {

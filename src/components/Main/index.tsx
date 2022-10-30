@@ -1,30 +1,16 @@
 import { Grid, Loading, Text } from "@nextui-org/react";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { useLaunchContext } from "../../context/Launch";
 import { Result } from "../../types/Launch";
 import { LaunchingPoint } from "../LaunchingPoint";
 
-export const Main: FC = () => {
-  const { query } = useLaunchContext();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-  useEffect(() => {
-    if (query?.isLoading) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [query?.isLoading]);
+interface Props {
+  results: Result[];
+  isLoading: boolean;
+  error: boolean;
+}
 
-  useEffect(() => {
-    if (query?.isError) {
-      setError(true);
-    } else {
-      setError(false);
-    }
-  }, [query?.isError]);
-
+export const Main: FC<Props> = ({ results, isLoading, error }) => {
   return (
     <div className="App-main">
       <Grid.Container
@@ -47,20 +33,18 @@ export const Main: FC = () => {
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {query?.data?.map((result: Result) => {
-                  if (result?.pad?.latitude && result?.pad?.longitude) {
-                    return (
-                      <LaunchingPoint
-                        key={result.id}
-                        latitude={result?.pad?.latitude}
-                        longitude={result?.pad?.longitude}
-                        time={result?.net}
-                        padName={result?.pad?.name}
-                        agencyName={result?.launch_service_provider.name}
-                        mapImage={result?.pad.location?.map_image}
-                      />
-                    );
-                  }
+                {results.map((result: Result) => {
+                  return (
+                    <LaunchingPoint
+                      key={result.id}
+                      latitude={result?.pad?.latitude}
+                      longitude={result?.pad?.longitude}
+                      time={result?.net}
+                      padName={result?.pad?.name}
+                      agencyName={result?.launch_service_provider.name}
+                      mapImage={result?.pad.location?.map_image}
+                    />
+                  );
                 })}
               </MapContainer>
             )}
